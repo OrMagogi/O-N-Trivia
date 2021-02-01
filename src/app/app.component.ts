@@ -56,7 +56,8 @@ export class AppComponent {
     this.user.highScore =0;
     //alert(operation+": "+this.user.userName +" "+ this.user.password +" "+ this.user.highScore);
     if(operation=='Log in'){   // to be changed
-      this.isLoggedIn=true;
+      // this.isLoggedIn=true;
+      
     }
   }
 
