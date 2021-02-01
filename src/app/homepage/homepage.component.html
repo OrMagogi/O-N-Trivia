@@ -1,0 +1,32 @@
+<h1> WELCOME TO O&N TRIVIA ! </h1>
+<ngb-carousel #carousel class="carousel slide carousel-fade" [interval]="3000" [showNavigationArrows]="true"
+  [showNavigationIndicators]="false" id="homepage_carousel">
+  <ng-template ngbSlide *ngFor="let img of images; index as i">
+    <div class="picsum-img-wrapper">
+      <img id="homepage_carousel_image" [src]="img" alt="My image {{i + 1}} description">
+    </div>
+  </ng-template>
+</ngb-carousel>
+
+
+
+
+<div>
+  <h2>What's new?</h2>
+  <ul>
+    <li *ngFor="let news of newsList">
+      <div>
+        {{news.news}}
+      </div>
+    </li>
+  </ul>
+
+</div>
+
+<ngb-accordion (panelChange)="beforeChange($event)" *ngFor="let information of informationList">
+  <ngb-panel id="preventchange-1" title= {{information.heading}}>
+    <ng-template ngbPanelContent>
+      {{information.info}}
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

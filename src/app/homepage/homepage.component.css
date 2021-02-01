@@ -1,0 +1,18 @@
+#homepage_carousel{
+    margin: auto ;
+    width: 50%;
+    height: 25%;
+    margin-bottom: 250px;
+}
+
+#homepage_carousel_image{
+    height: 25%; 
+    width: 100%;
+    
+}
+
+h1{
+    margin: 30px;
+    text-align: center;
+
+}

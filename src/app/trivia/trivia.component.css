@@ -1,0 +1,80 @@
+.triviaQuestion{
+    color: black;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px;
+    border-radius: 5%;
+    height: 100%;
+    width: 100%;
+    font-family: cursive;
+}
+.centered{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.triviaQuestionContainer{
+    width: fit-content;
+    background-color: rgba(18, 155, 218, 0.63);
+    border-radius: 4px;
+
+}
+
+.triviaOption{
+    background-color: whitesmoke;
+    margin: 5px;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 4px;
+    font-family: cursive;
+    animation: slideIn .35s ease-in;
+}
+
+.triviaOption:hover {
+    background-color: #757575;
+    color: white;
+  }
+
+.startGameButton{
+    width: 100px;
+    height: 40px;
+    font-size: 25px;
+    box-shadow: 4px black;    
+}
+
+body,html{
+    height: 100%;
+}
+
+
+#finished_trivia_star{
+    height: 300px;
+    width: 300px;
+    margin: 30px;
+}
+
+.triviaContent{
+    align-items: center;
+    text-align: center;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 32px;
+}
+
+.wrongAnswer{
+    background-color: rgba(209, 0, 0, 0.603);
+}
+
+.correctAnswer{
+    background-color: rgba(0, 139, 0, 0.603);
+}
+
+@keyframes slideIn{
+    0%{
+        transform: translateX(-50px);
+    }
+    100%{
+        
+    }
+}

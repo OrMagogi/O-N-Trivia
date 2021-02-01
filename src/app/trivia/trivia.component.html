@@ -1,0 +1,49 @@
+
+<ng-template #startGameTemplate [ngIf]="stage1">
+  <div class="triviaContent">
+    <button class="startGameButton" (click)="startTriviaSp()">START</button>
+  </div>
+</ng-template>
+
+<ng-template #gameQuestionsTemplate [ngIf]="stage2">
+  <div class="triviaContent">
+    Your Score: {{userScore}}
+  </div>
+  <div class="centered">
+    <div class="triviaQuestionContainer">
+      <div class="triviaQuestion">{{questionsList[questionIndex].question}}</div>
+      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[0]])" [class.triviaOption]="isAnimated">
+        {{questionsList[questionIndex].answers[answersIndexes[0]]}}</div>
+      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[1]])" class="triviaOption">
+        {{questionsList[questionIndex].answers[answersIndexes[1]]}}</div>
+      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[2]])" class="triviaOption">
+        {{questionsList[questionIndex].answers[answersIndexes[2]]}}</div>
+      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[3]])" class="triviaOption">
+        {{questionsList[questionIndex].answers[answersIndexes[3]]}}</div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #gameResultsTemplate [ngIf]="stage3">
+  <div class="triviaContent">
+    <div>
+      {{correctAnswers}} / {{numberOfQuestions}}
+      <br><br>
+      Your Score: {{userScore}}
+    </div>
+    <div>
+      <span>
+        <img src="/assets/data/finished_trivia_star.png" id="finished_trivia_star">
+      </span>
+    </div>
+  </div>
+  <ngb-accordion (panelChange)="beforeChange($event)" *ngFor="let question of questionsList; index as i">
+    <ngb-panel id="preventchange-1" title= {{question.question}}>
+      <ng-template ngbPanelContent>
+        Given Answer:  {{this.triviaInfo[i].givenAnswer}}
+        <br>
+        Correct Answer:  {{question.answers[0]}}
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</ng-template>

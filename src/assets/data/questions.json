@@ -1,0 +1,25 @@
+[
+    {"question": "who was the first prime minister of Israel?", "answers": ["David Ben-Gurion", "Moshe Sharet",  "Haim Weitzman", "Benjamin Netanyahu"]},
+    {"question": "When was the Corona virus first discovered?", "answers": ["2019", "1983", "1917","2020"]},
+    {"question": "What is the capital city of Israel?", "answers": ["Jerusalem","Haifa", "Akko", "Tel Aviv"]},
+    {"question": "What of the following is not an element?", "answers": ["B", "C",  "O", "H"]},
+    {"question": "What is the squarred root of 169?", "answers": ["13", "11",  "12", "14"]},
+
+    {"question": "Which company created 'Windows' operation system?", "answers": ["Microsoft", "Dell",  "Facebook", "Google"]},
+    {"question": "What occured latest?", "answers": ["Berlins wall fell", "The Six Days war",  "World War 2", "J.F. Kennedy murder"]},
+    {"question": "According to greek mythology, who killed Medusa?", "answers": ["Perseus", "Zeus",  "Hercules", "Apollo"]},
+    {"question": "Where is Tibidabo mountain located?", "answers": ["Spain", "Russia",  "France", "Brazil"]},
+    {"question": "Where in the body is blood produced?", "answers": ["Bones", "Heart",  "Lungs", "Kidney"]},
+    {"question": "Mitsubishi, Toyota, and Sony all started in which country?", "answers": ["Japan", "China",  "Korea", "Thailand"]},
+    {"question": "3.785 liters is equal to how many gallons?", "answers": ["1", "2",  "5", "10"]},
+    {"question": "The unicorn is the national animal of which country?", "answers": ["Scotland", "Serbia",  "Holland", "Greece"]},
+    {"question": "What was the first soft drink in space?", "answers": ["Coca-Cola", "Soda",  "Fanta", "Sprite"]},
+    {"question": "What three countries have won the world cup twice??", "answers": ["France, Argentina, Uruguay", "Spain, France, Russia",  "Spain, Uruguay, France", "Uruguay, Argentina, England"]},
+    {"question": "Which ocean is home to Christmas Island??", "answers": ["The Indian", "The Pacific",  "The Arctic", "The Atlantic"]},
+    {"question": "Where are the Blue Mountains located??", "answers": ["Jamaica", "Brazil",  "Mexico", "Peru"]},
+    {"question": "What does Vodka mean in English?", "answers": ["Little water", "Warm water",  "Russian water", "Awakening water"]},
+    {"question": "Where do Kiwifruit originate?", "answers": ["China", "Brazil",  "Spain", "South Africa"]},
+    {"question": "How is the number 1, followed by 100 zeroes called?", "answers": ["Googol", "End point", "Peta", "Pascal"]}
+]
+    
+    
