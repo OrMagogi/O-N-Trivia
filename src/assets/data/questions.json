@@ -4,7 +4,6 @@
     {"question": "What is the capital city of Israel?", "answers": ["Jerusalem","Haifa", "Akko", "Tel Aviv"]},
     {"question": "What of the following is not an element?", "answers": ["B", "C",  "O", "H"]},
     {"question": "What is the squarred root of 169?", "answers": ["13", "11",  "12", "14"]},
-
     {"question": "Which company created 'Windows' operation system?", "answers": ["Microsoft", "Dell",  "Facebook", "Google"]},
     {"question": "What occured latest?", "answers": ["Berlins wall fell", "The Six Days war",  "World War 2", "J.F. Kennedy murder"]},
     {"question": "According to greek mythology, who killed Medusa?", "answers": ["Perseus", "Zeus",  "Hercules", "Apollo"]},
