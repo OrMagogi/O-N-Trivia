@@ -23,6 +23,7 @@ export class TriviaComponent {
   public correctAnswers;
   public isAnimated;
   public triviaInfo=[];  // holds the question number and the answer given
+  public triviaTimer;
 
 
   constructor(private _triviaService: TriviaService) {
@@ -45,6 +46,7 @@ export class TriviaComponent {
 
   startTriviaSp() {
     this.setStage(false, true, false);
+    this.triviaTimer=60;
     this.changeAnswersOrder();
   }
 
@@ -101,5 +103,9 @@ export class TriviaComponent {
     if ($event.panelId === 'preventchange-3' && $event.nextState === false) {
       $event.preventDefault();
     }
+  }
+
+  lowerTimer(){
+    
   }
 }
