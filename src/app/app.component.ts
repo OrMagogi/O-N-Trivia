@@ -22,7 +22,7 @@ export class AppComponent {
   public user;
   public modalTitle:string;
   public pageToDisplay="homepage_template";
-  //public questionsList =[];
+  public confirmedPassword;
   closeResult = '';
 
   constructor(private _triviaService : TriviaService, private modalService: NgbModal,private dialog: MatDialog){}
@@ -30,6 +30,7 @@ export class AppComponent {
   ngOnInit(){
     this.user = new User("","",0);
     this.isLoggedIn=false;
+    
   }
 
 
@@ -57,6 +58,9 @@ export class AppComponent {
     //alert(operation+": "+this.user.userName +" "+ this.user.password +" "+ this.user.highScore);
     if(operation=='Log in'){   // to be changed
       this.isLoggedIn=true;
+      
+    } else{
+      
     }
   }
 
@@ -74,5 +78,13 @@ export class AppComponent {
     })
   }
 
+/*   checkPasswords() {
+    if (this.confirmedPassword.length >= this.user.password.length &&
+        this.confirmedPassword !== this.user.password) {
+      setTimeout(() => this.pwConfirmModel.control.setErrors({'nomatch': true}) );
+    } else {
+      // to clear the error, we don't have to wait
+      this.pwConfirmModel.control.setErrors(null);
+    } */
   
 }

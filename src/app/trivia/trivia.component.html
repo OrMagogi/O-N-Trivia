@@ -6,19 +6,24 @@
 </ng-template>
 
 <ng-template #gameQuestionsTemplate [ngIf]="stage2">
+  
   <div class="triviaContent">
+    <countdown #timer [config]="{leftTime:60, format: 'mm:ss'}" (event)="handleTimerEvent($event.action)"></countdown>
+    <br><br>
     Your Score: {{userScore}}
+    <br><br>
+    Question {{questionIndex+1}}
   </div>
   <div class="centered">
     <div class="triviaQuestionContainer">
       <div class="triviaQuestion">{{questionsList[questionIndex].question}}</div>
-      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[0]])" [class.triviaOption]="isAnimated">
+      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[0]],0)" class={{answersDivClasses[0]}}>
         {{questionsList[questionIndex].answers[answersIndexes[0]]}}</div>
-      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[1]])" class="triviaOption">
+      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[1]],1)" class={{answersDivClasses[1]}}>
         {{questionsList[questionIndex].answers[answersIndexes[1]]}}</div>
-      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[2]])" class="triviaOption">
+      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[2]],2)" class={{answersDivClasses[2]}}>
         {{questionsList[questionIndex].answers[answersIndexes[2]]}}</div>
-      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[3]])" class="triviaOption">
+      <div (click)="checkAnswer(questionsList[questionIndex].answers[answersIndexes[3]],3)" class={{answersDivClasses[3]}}>
         {{questionsList[questionIndex].answers[answersIndexes[3]]}}</div>
     </div>
   </div>
@@ -27,6 +32,7 @@
 <ng-template #gameResultsTemplate [ngIf]="stage3">
   <div class="triviaContent">
     <div>
+
       {{correctAnswers}} / {{numberOfQuestions}}
       <br><br>
       Your Score: {{userScore}}

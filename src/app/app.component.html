@@ -25,7 +25,6 @@
     <app-trivia></app-trivia>
   </ng-template>
 
-
   <!--
     templates for navigation bar, logged in or not
   -->
@@ -41,7 +40,6 @@
   <ng-template #logout_template>
     <div>
       <button mat-button (click)="setPage('triviaSp_template')" routerLink="/triviaSp" routerLinkActive="active">Single Player</button>
-      <button mat-button>1 VS. 1</button>
       <button mat-button routerLink="/highScores" routerLinkActive="active">Highscores</button>
     </div>
     <div>
@@ -90,14 +88,14 @@
 
       <div class="form-group" *ngIf="modalTitle=='Registration'">
         <label>Confirm Password: </label>
-        <input type="password" required name="confirmPassword" #confirmPassword="ngModel" ngModel
-          [class.is-invalid]="confirmPassword.invalid && confirmPassword.touched" class="form-control"
-          pattern="^[a-zA-Z0-9]{8,}$" maxlength="20" v>
+        <input type="password" required name="confirmPassword" #confirmPassword="ngModel" [(ngModel)]="confirmedPassword" 
+          [class.is-invalid]="(confirmPassword.invalid && confirmPassword.touched)" class="form-control"
+          pattern="^[a-zA-Z0-9]{8,}$" maxlength="20">
         <div *ngIf="confirmPassword.errors && (confirmPassword.valid || confirmPassword.touched)">
           <small class="text-danger" *ngIf="confirmPassword.errors.required">confirm password is required</small>
         </div>
       </div>
-
+      
       <button type="submit" class="btn-primary" [disabled]="newUserForm.form.invalid" (click)="modal.dismiss('Cross click')">Submit</button>
     </form>
   </div>

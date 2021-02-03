@@ -13,9 +13,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
 }
 .triviaQuestionContainer{
+    margin-top: 50px;
     width: fit-content;
     background-color: rgba(18, 155, 218, 0.63);
     border-radius: 4px;
@@ -68,6 +68,9 @@ body,html{
 
 .correctAnswer{
     background-color: rgba(0, 139, 0, 0.603);
+}
+.disabledAnswer{
+    pointer-events:none;
 }
 
 @keyframes slideIn{
