@@ -10,17 +10,20 @@ import { INews } from './INews';
 })
 export class TriviaService {
 
-  // private _questionsUrl : string = "/assets/data/questions.json";
-  private _questionsUrl: string = "http://localhost:5000/getQuestions";
-  private _getUserUrl: string = "http://localhost:5000/getUserByUserNameAndPassword";
-  private _signUpUserUrl: string = "http://localhost:5000/signUpUser";
+  //server's address and port URL
+  private serverURL: string = "http://localhost:5000";
+
+  private _questionsUrl : string = "/assets/data/questions.json";
+  private _remoteQuestionsUrl: string = `${this.serverURL}/getQuestions`;
+  private _getUserUrl: string = `${this.serverURL}/getUserByUserNameAndPassword`;
+  private _signUpUserUrl: string = `${this.serverURL}/signUpUser`;
   private _newsUrl: string = "/assets/data/news.json";
   private _infoUrl: string = "/assets/data/information.json";
 
   constructor(private http: HttpClient) { }
 
   getQuestions(): Observable<string> {
-    return this.http.get<string>(this._questionsUrl);
+    return this.http.get<string>(this._remoteQuestionsUrl);
   }
 
 
