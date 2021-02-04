@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
 import { TriviaService } from './trivia.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { User } from './user'
-import {Routes,RouterModule } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
+import { Routes, RouterModule } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
+import { UseExistingWebDriver } from 'protractor/built/driverProviders';
 
+//response coded
+const NO_USER_FOUND = 1
+const USER_ALREADY_REGISTERED = 2
+const SIGNED_UP_SUCCESSFULY = 3
 
 @Component({
   selector: 'app-root',
@@ -15,8 +20,8 @@ import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
 })
 export class AppComponent {
   title = 'my-app1';
-  public userName= "Or";
-  public counter=0;
+  public userName = "Or";
+  public counter = 0;
   public usernameColor;
   public isLoggedIn;
   public user;
@@ -24,19 +29,21 @@ export class AppComponent {
   public pageToDisplay="homepage_template";
   public confirmedPassword;
   closeResult = '';
+  constructor(private _triviaService: TriviaService, private modalService: NgbModal, private dialog: MatDialog) { }
 
-  constructor(private _triviaService : TriviaService, private modalService: NgbModal,private dialog: MatDialog){}
-
-  ngOnInit(){
-    this.user = new User("","",0);
-    this.isLoggedIn=false;
-    
+  ngOnInit() {
+    this.user = new User("", "", 0);
+    console.log("is user logged?: " + localStorage["loggedUser"]);
+    this.isLoggedIn = localStorage["loggedUser"] != "undefined"
+    // if (this.isLoggedIn) {
+    //   this.user = new User(localStorage["loggedUser"].userName, "", localStorage["loggedUser"].maxScore);
+    // }
   }
 
 
-  open(content,action:string) {
+  open(content, action: string) {
     this.modalTitle = action;
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -53,38 +60,62 @@ export class AppComponent {
     }
   }
 
-  onSubmit(operation:string){
-    this.user.highScore =0;
-    //alert(operation+": "+this.user.userName +" "+ this.user.password +" "+ this.user.highScore);
-    if(operation=='Log in'){   // to be changed
-      this.isLoggedIn=true;
-      
-    } else{
-      
+  onSubmit(operation: string) {
+    this.user.highScore = 0;
+    if (operation == 'Log in') {   // to be changed
+      this.handleLogin()
+    } else if (operation == 'Registration') {
+      this.handleRegistration()
     }
   }
 
-  setPage(templateName){
+  handleLogin() {
+    this._triviaService.getUserByUserNameAndPassword(this.user.userName, this.user.password).subscribe((data: any) => {
+      if (data?.errorCode) {
+        console.log("Problem occured");
+      } else {
+        if (data?.userName) {
+          localStorage["loggedUser"] = data
+          this.user.userName = data.userName
+          this.isLoggedIn = true
+        } else {
+          console.log("No user found");
+        }
+      }
+      console.log(data)
+    });
+  }
+
+  handleRegistration() {
+    this._triviaService.signUpUser(this.user.userName, this.user.password).subscribe((data: any) => {
+      if (data?.errorCode) {
+        if (data.errorCode == USER_ALREADY_REGISTERED) {
+          console.log("Username already taken, try another");
+        } else {
+          console.log('Problem signing up');
+        }
+      } else {
+        console.log('Signed up succssefuly');
+      }
+      console.log(data)
+    });
+  }
+
+  setPage(templateName) {
     this.pageToDisplay = templateName;
 
   }
 
-  openLogoutDialog(){
-    let dialogRef= this.dialog.open(LogoutDialogComponent);
-    dialogRef.afterClosed().subscribe(result=>{
-      if(result){
-        this.isLoggedIn=false;
+  openLogoutDialog() {
+    let dialogRef = this.dialog.open(LogoutDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == "logout") {
+        console.log(result);
+        localStorage["loggedUser"] = undefined
+        this.isLoggedIn = false
       }
     })
   }
 
-/*   checkPasswords() {
-    if (this.confirmedPassword.length >= this.user.password.length &&
-        this.confirmedPassword !== this.user.password) {
-      setTimeout(() => this.pwConfirmModel.control.setErrors({'nomatch': true}) );
-    } else {
-      // to clear the error, we don't have to wait
-      this.pwConfirmModel.control.setErrors(null);
-    } */
-  
 }
+
