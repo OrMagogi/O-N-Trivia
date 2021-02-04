@@ -15,6 +15,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
 import { HighScoresComponent } from './high-scores/high-scores.component';
 import {CountdownModule} from 'ngx-countdown';
+import {MatTableModule} from '@angular/material/table';
+
 
 
 
@@ -40,6 +42,7 @@ import {CountdownModule} from 'ngx-countdown';
     MatButtonModule,
     MatDialogModule,
     CountdownModule,
+    MatTableModule,
   ],
 
   providers: [TriviaService],
