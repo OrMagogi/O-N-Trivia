@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IQuestion } from '../IQuestion';
 import { TriviaService } from '../trivia.service';
-import {NgbPanelChangeEvent} from '@ng-bootstrap/ng-bootstrap';
+import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { CountdownModule } from 'ngx-countdown';
+import { timer } from 'rxjs';
+import { updateConstructorTypeNode } from 'typescript';
 
 @Component({
   selector: 'app-trivia',
@@ -10,7 +13,7 @@ import {NgbPanelChangeEvent} from '@ng-bootstrap/ng-bootstrap';
 })
 export class TriviaComponent {
 
-  public questionsList: any = [];
+  public questionsList: any[] = [];
   public stage1: boolean;
   public stage2: boolean;
   public stage3: boolean;
@@ -22,7 +25,10 @@ export class TriviaComponent {
   public correctsCombo;
   public correctAnswers;
   public isAnimated;
-  public triviaInfo=[];  // holds the question number and the answer given
+  public triviaInfo = [];  // holds the question number and the answer given
+  public triviaTimer: number;
+  public leftTime;
+  public answersDivClasses = [];
 
 
   constructor(private _triviaService: TriviaService) {
@@ -32,43 +38,75 @@ export class TriviaComponent {
     this.numberOfQuestions = 5;
     this.questionIndex = 0;
     this.userScore = 0;
-    this.correctsCombo=0;
-    this.correctAnswers=0;
-    this.isAnimated=true;
+    this.correctsCombo = 0;
+    this.correctAnswers = 0;
+    this.isAnimated = true;
+    this.triviaTimer = 60;
+
   }
 
   ngOnInit() {
     // response is the data that came back from the get request
-    this._triviaService.getQuestions().subscribe(response => this.questionsList = response);
+    this._triviaService.getRemoteQuestions().subscribe((response: any[]) => {
+
+      response.forEach(element => {
+        this.questionsList.push(JSON.parse(element));
+      });
+    });
+
     this.answersIndexes = [0, 1, 2, 3];
+    this.answersDivClasses[0] = "triviaOption";
+    this.answersDivClasses[1] = "triviaOption";
+    this.answersDivClasses[2] = "triviaOption";
+    this.answersDivClasses[3] = "triviaOption";
+
   }
 
   startTriviaSp() {
     this.setStage(false, true, false);
+    console.log("Trivia_Component_ts - startTriviaSp() " + this.triviaTimer);
+    console.log(`this ${this}`);
     this.changeAnswersOrder();
   }
 
-  checkAnswer(clickedAnswer) {
-    this.isAnimated=false;
-    this.isAnimated=true;
-    if(clickedAnswer == this.questionsList[this.questionIndex].answers[0]){
+  async checkAnswer(clickedAnswer, divNumber) {
+    this.answersDivClasses[0] += " disabledAnswer";
+    this.answersDivClasses[1] += " disabledAnswer";
+    this.answersDivClasses[2] += " disabledAnswer";
+    this.answersDivClasses[3] += " disabledAnswer";
+    this.answersDivClasses[this.answersIndexes.lastIndexOf(0)] += " correctAnswer";
+    if (clickedAnswer == this.questionsList[this.questionIndex].answers[0]) {
       this.calculateScore();
-      this.correctsCombo+=1;
-      this.correctAnswers+=1;
-    } else{
-      this.correctsCombo=0;
+      this.correctsCombo += 1;
+      this.correctAnswers += 1;
+    } else {
+      this.answersDivClasses[divNumber] += " wrongAnswer";
+      this.correctsCombo = 0;
     }
-    this.triviaInfo[this.questionIndex] = {"index": this.questionIndex , "givenAnswer" : clickedAnswer};
+    await this.delay(1500);
+    this.triviaInfo[this.questionIndex] = { "index": this.questionIndex, "givenAnswer": clickedAnswer };
+    this.answersDivClasses[0] = "triviaOption";
+    this.answersDivClasses[1] = "triviaOption";
+    this.answersDivClasses[2] = "triviaOption";
+    this.answersDivClasses[3] = "triviaOption";
     this.stepToNextQuestion();
   }
 
-  stepToNextQuestion(){
-    this.questionIndex +=1;
+  stepToNextQuestion() {
+    this.questionIndex += 1;
     if (this.questionIndex == this.numberOfQuestions) {
-      this.setStage(false, false, true);
+      this.setStage(false, false, true); 
+      console.log("score from local storage: "+localStorage["loggedUser"].maxScore);
+      if(this.userScore> localStorage["loggedUser"].maxScore){
+        this.updateScoreAfterGame();  
+      } else{
+        console.log("highscore wasnt reached. No update");
+        
+      }
     } else {
       this.changeAnswersOrder();
     }
+
   }
 
   setStage(if1: boolean, if2: boolean, if3: boolean) {
@@ -79,16 +117,16 @@ export class TriviaComponent {
 
   changeAnswersOrder() {
     for (let i = 10; i > 0; i--) {
-      let random1 = Math.floor(Math.random()*4);
-      let random2 = Math.floor(Math.random()*4);
+      let random1 = Math.floor(Math.random() * 4);
+      let random2 = Math.floor(Math.random() * 4);
       let temp = this.answersIndexes[random1];
       this.answersIndexes[random1] = this.answersIndexes[random2];
       this.answersIndexes[random2] = temp;
     }
   }
 
-  calculateScore(){
-    this.userScore+= (100+ 100*(this.correctsCombo *1.2) + 200*Math.floor((this.correctsCombo+1)/5));
+  calculateScore() {
+    this.userScore += (100 + 100 * (this.correctsCombo * 1.2) + 200 * Math.floor((this.correctsCombo + 1) / 5));
   }
 
 
@@ -102,4 +140,24 @@ export class TriviaComponent {
       $event.preventDefault();
     }
   }
+
+  handleTimerEvent(event) {
+    if (event == "done") {
+      for (let i = this.questionIndex; i < this.numberOfQuestions; i++) {
+        this.triviaInfo[this.questionIndex] = { "index": this.questionIndex, "givenAnswer": "---" };
+        this.questionIndex += 1;
+      }
+      this.setStage(false, false, true);
+    }
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  updateScoreAfterGame(){
+    this._triviaService.updateUserScore("naor5",333).subscribe(response=>{
+    });
+  }
+
 }

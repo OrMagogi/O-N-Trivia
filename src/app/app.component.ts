@@ -25,9 +25,9 @@ export class AppComponent {
   public usernameColor;
   public isLoggedIn;
   public user;
-  public modalTitle: string;
-  public pageToDisplay = "homepage_template";
-  //public questionsList =[];
+  public modalTitle:string;
+  public pageToDisplay="homepage_template";
+  public confirmedPassword;
   closeResult = '';
   constructor(private _triviaService: TriviaService, private modalService: NgbModal, private dialog: MatDialog) { }
 
