@@ -75,7 +75,12 @@ export class AppComponent {
         console.log("Problem occured");
       } else {
         if (data?.userName) {
-          localStorage["loggedUser"] = data
+          console.log("type of data: "+typeof data);
+          console.log("data.userName: "+data.userName);
+          
+          localStorage["loggedUser"] = JSON.stringify(data)
+          console.log("logged user: "+JSON.parse(localStorage["loggedUser"]).userName);
+          
           this.user.userName = data.userName
           this.isLoggedIn = true
         } else {
