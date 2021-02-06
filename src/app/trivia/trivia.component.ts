@@ -95,13 +95,15 @@ export class TriviaComponent {
   stepToNextQuestion() {
     this.questionIndex += 1;
     if (this.questionIndex == this.numberOfQuestions) {
-      this.setStage(false, false, true); 
-      console.log("score from local storage: "+localStorage["loggedUser"].maxScore);
-      if(this.userScore> localStorage["loggedUser"].maxScore){
-        this.updateScoreAfterGame();  
-      } else{
+      this.setStage(false, false, true);
+      let loggedUser = JSON.parse(localStorage["loggedUser"])
+      console.log("score from local storage: " + loggedUser?.maxScore);
+      if (this.userScore > loggedUser.maxScore) {
+        loggedUser.maxScore = this.userScore
+        this.updateScoreAfterGame(loggedUser);
+      } else {
         console.log("highscore wasnt reached. No update");
-        
+
       }
     } else {
       this.changeAnswersOrder();
@@ -155,8 +157,13 @@ export class TriviaComponent {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  updateScoreAfterGame(){
-    this._triviaService.updateUserScore("naor5",333).subscribe(response=>{
+  updateScoreAfterGame(loggedUser: { userName: string; maxScore: number; }) {
+    // this._triviaService.updateUserScore("naor5",333).subscribe(response=>{
+    // });
+    localStorage["loggedUser"] = JSON.stringify(loggedUser)
+    this._triviaService.updateUserScore(loggedUser.userName, loggedUser.maxScore).subscribe(response => {
+      console.log(response);
+      
     });
   }
 
