@@ -12,7 +12,7 @@ export class TriviaService {
 
   //server's address and port URL
   // private serverURL: string = "http://localhost:5000";
-  private serverURL: string = "http://10.100.102.8:5000";
+  private serverURL: string = "http://192.168.1.242:5000";
 
   private _localQuestionsUrl : string = "/assets/data/questions.json";
   private _remoteQuestionsUrl: string = `${this.serverURL}/getQuestions`;

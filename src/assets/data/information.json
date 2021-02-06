@@ -1,5 +1,5 @@
 [
-    { "heading" : "what_is_o&n_trivia" , "info" : "explain about the game... to be completed" },
-    { "heading" : "how_to_play" , "info" : "explain how to play... to be completed" },
-    { "heading" : "what are the scores for?" , "info" : "explain about the scores... to be completed" }
+    { "heading" : "what is_o&n trivia" , "info" : "O&N trivia is the creation of O.M and N.O. It is a trivia game for you to enjoy and learn. Answer as best and quick as you can to win a better score. Break your best score and get yourself as high as you can in the table"},
+    { "heading" : "how to play" , "info" : "Each trivia game starts the moment you press start in the single player page. Each game gives you 60 seconds to answer 10 questions as fast as you are able. When each question appears, click on the answer you think is the right one. The game will bring your attention whenever you are right and wrong" },
+    { "heading" : "what are the scores for?" , "info" : "Scores determine how you answer each trivia game. The better your answers - the better your score and rank. Compare yourself against other people from the world" }
 ]

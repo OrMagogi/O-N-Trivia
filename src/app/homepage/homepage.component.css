@@ -16,3 +16,7 @@ h1{
     text-align: center;
 
 }
+
+ngbPanelContent{
+    width: 100px;
+}
