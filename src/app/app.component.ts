@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { TriviaService } from './trivia.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
@@ -6,7 +6,10 @@ import { User } from './user'
 import { Routes, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
+import {MatIconModule} from '@angular/material/icon';
 import { UseExistingWebDriver } from 'protractor/built/driverProviders';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 
 //response coded
 const NO_USER_FOUND = 1
@@ -20,7 +23,7 @@ const SIGNED_UP_SUCCESSFULY = 3
 })
 export class AppComponent {
   title = 'my-app1';
-  public userName = "Or";
+  public userName;
   public counter = 0;
   public usernameColor;
   public isLoggedIn;
@@ -29,19 +32,22 @@ export class AppComponent {
   public pageToDisplay="homepage_template";
   public confirmedPassword;
   closeResult = '';
+  public isLoginInformationIncorrect;
   constructor(private _triviaService: TriviaService, private modalService: NgbModal, private dialog: MatDialog) { }
 
+    @ViewChild("content") modal;
   ngOnInit() {
     this.user = new User("", "", 0);
     console.log("is user logged?: " + localStorage["loggedUser"]);
     this.isLoggedIn = localStorage["loggedUser"] != "undefined"
-    // if (this.isLoggedIn) {
-    //   this.user = new User(localStorage["loggedUser"].userName, "", localStorage["loggedUser"].maxScore);
-    // }
+    if(this.isLoggedIn){
+      this.userName = JSON.parse(localStorage["loggedUser"])?.userName;
+    }
   }
 
 
   open(content, action: string) {
+    this.isLoginInformationIncorrect=false;
     this.modalTitle = action;
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -61,8 +67,9 @@ export class AppComponent {
   }
 
   onSubmit(operation: string) {
+    
     this.user.highScore = 0;
-    if (operation == 'Log in') {   // to be changed
+    if (operation == 'Log in') {
       this.handleLogin()
     } else if (operation == 'Registration') {
       this.handleRegistration()
@@ -81,10 +88,12 @@ export class AppComponent {
           localStorage["loggedUser"] = JSON.stringify(data)
           console.log("logged user: "+JSON.parse(localStorage["loggedUser"]).userName);
           
-          this.user.userName = data.userName
+          this.userName = data.userName
           this.isLoggedIn = true
+          this.modalService.dismissAll();
         } else {
-          console.log("No user found");
+          this.isLoginInformationIncorrect=true;
+          console.log("No user found, isLoginInformationIncorrect:  "+this.isLoginInformationIncorrect);
         }
       }
       console.log(data)
@@ -122,5 +131,8 @@ export class AppComponent {
     })
   }
 
+  changedLoginData(){
+    this.isLoginInformationIncorrect=false;
+  }
 }
 

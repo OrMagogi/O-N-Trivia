@@ -3,6 +3,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { TriviaService } from '../trivia.service';
+import {MatDividerModule} from '@angular/material/divider';
 import { element } from 'protractor';
 
 export interface userScore {
@@ -27,8 +28,7 @@ var ELEMENT_DATA: userScore[] = [
   styleUrls: ['./high-scores.component.css']
 })
 export class HighScoresComponent implements AfterViewInit {
-
-
+  public myHighscore;
   public usersScores = [];
   constructor(private _triviaService: TriviaService) { }
 
@@ -38,6 +38,9 @@ export class HighScoresComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
+    let loggedUser=JSON.parse(localStorage["loggedUser"]);
+    this.myHighscore=loggedUser.maxScore;
+    
     this.dataSource.paginator = this.paginator;
     this._triviaService.getTopScores().subscribe((response: any[]) => {
       for (let index = 0; index < this.dataSource.data.length; index++) {

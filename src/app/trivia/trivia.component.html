@@ -1,14 +1,22 @@
 
 <ng-template #startGameTemplate [ngIf]="stage1">
   <div class="triviaContent">
-    <button class="startGameButton" (click)="startTriviaSp()">START</button>
+    <div>
+      <h2>Are You Ready ?</h2>
+    </div>
+    <div>
+      Time limit: 
+      <input [(ngModel)]="triviaTimer" style="margin-bottom: 40px;" type="number" min="30" max="120" step="5">
+    </div>
+    <button class="startGameButton" style="margin-bottom: 150px;" (click)="startTriviaSp()">START</button>
+
   </div>
 </ng-template>
 
 <ng-template #gameQuestionsTemplate [ngIf]="stage2">
   
   <div class="triviaContent">
-    <countdown #timer [config]="{leftTime:60, format: 'mm:ss'}" (event)="handleTimerEvent($event.action)"></countdown>
+    <countdown #timer [config]="{leftTime:triviaTimer, format: 'mm:ss'}" (event)="handleTimerEvent($event.action)"></countdown>
     <br><br>
     Your Score: {{userScore}}
     <br><br>
@@ -36,12 +44,18 @@
       {{correctAnswers}} / {{numberOfQuestions}}
       <br><br>
       Your Score: {{userScore}}
+      <br><br>
+      <h1 *ngIf="isNewHighscore">New High Score Reached</h1>
     </div>
     <div>
       <span>
         <img src="/assets/data/finished_trivia_star.png" id="finished_trivia_star">
       </span>
     </div>
+    <button mat-raised-button color="accent" (click)="playAgain()">
+      <mat-icon>refresh</mat-icon>
+      Play Again
+    </button>
   </div>
   <ngb-accordion (panelChange)="beforeChange($event)" *ngFor="let question of questionsList; index as i">
     <ngb-panel id="preventchange-1" title= {{question.question}}>

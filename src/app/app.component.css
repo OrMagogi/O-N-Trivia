@@ -53,3 +53,7 @@
     font-size: 18px;
 
 }
+mat-icon{
+    width: 50px;
+    margin-left: 5px;
+}

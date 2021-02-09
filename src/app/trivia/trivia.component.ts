@@ -29,19 +29,20 @@ export class TriviaComponent {
   public triviaTimer: number;
   public leftTime;
   public answersDivClasses = [];
+  public isNewHighscore;
 
 
   constructor(private _triviaService: TriviaService) {
     this.stage1 = true;
     this.stage2 = false;
     this.stage3 = false;
-    this.numberOfQuestions = 5;
+    this.numberOfQuestions = 10;
     this.questionIndex = 0;
     this.userScore = 0;
     this.correctsCombo = 0;
     this.correctAnswers = 0;
     this.isAnimated = true;
-    this.triviaTimer = 60;
+    this.triviaTimer=60;
 
   }
 
@@ -64,6 +65,7 @@ export class TriviaComponent {
 
   startTriviaSp() {
     this.setStage(false, true, false);
+    this.isNewHighscore=false;
     console.log("Trivia_Component_ts - startTriviaSp() " + this.triviaTimer);
     console.log(`this ${this}`);
     this.changeAnswersOrder();
@@ -158,13 +160,17 @@ export class TriviaComponent {
   }
 
   updateScoreAfterGame(loggedUser: { userName: string; maxScore: number; }) {
-    // this._triviaService.updateUserScore("naor5",333).subscribe(response=>{
-    // });
+    this.isNewHighscore=true;
     localStorage["loggedUser"] = JSON.stringify(loggedUser)
     this._triviaService.updateUserScore(loggedUser.userName, loggedUser.maxScore).subscribe(response => {
       console.log(response);
       
     });
+  }
+
+  playAgain(){
+    //this.ngOnInit();
+    this.setStage(false,true,false);
   }
 
 }

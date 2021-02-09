@@ -16,6 +16,11 @@ import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
 import { HighScoresComponent } from './high-scores/high-scores.component';
 import {CountdownModule} from 'ngx-countdown';
 import {MatTableModule} from '@angular/material/table';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatIconModule} from '@angular/material/icon';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
+
 
 
 
@@ -32,10 +37,13 @@ import {MatTableModule} from '@angular/material/table';
   ],
   imports: [
     BrowserModule,
+    MDBBootstrapModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     NgbModule,
+    MatIconModule,
+    MatDividerModule,
     BrowserAnimationsModule,
     MatSliderModule,
     MatToolbarModule,
