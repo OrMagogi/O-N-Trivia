@@ -20,8 +20,9 @@
     margin-right: 40px;
 }
 
+
 .contactUsDiv{
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.75);
     height: 200px;
     width: 100%;
     margin-top: 40px;
@@ -57,3 +58,23 @@ mat-icon{
     width: 50px;
     margin-left: 5px;
 }
+
+.star {
+    font-size: 1.5rem;
+    color: #b0c4de;
+  }
+  .filled {
+    color: #1e90ff;
+  }
+  .bad {
+    color: #deb0b0;
+  }
+  .filled.bad {
+    color: #ff1e1e;
+  }
+
+  i{
+    position: absolute; 
+    top: 2px; 
+    right: 5px;
+  }

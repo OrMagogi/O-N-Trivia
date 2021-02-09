@@ -9,7 +9,22 @@
 
 
   <div class="contactUsDiv">
+    <i class="fas fa-question-circle" ngbTooltip="O&N Trivia was made by hard work, for your enjoyment. Any attempt to copy / harm this site will lead to seriuos legal consiquences"></i>
+
     <h2>Contact Us</h2>
+
+
+    <div style="margin-bottom: 20px;">Email:  
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=ornaorprojects@gmail.com" target="_blank">ornaorprojects@gmail.com</a>
+      <mat-icon> mail_outline</mat-icon>
+    </div>
+    <span>Rate Us:   </span>
+    <ngb-rating [(rate)]="currentRate" (hover)="currentRate=$event" (click)="handleRating()" [readonly]="readonly">
+      <ng-template let-fill="fill" let-index="index">
+        <span class="star" [class.filled]="fill === 100" >&#9733;</span>
+      </ng-template>
+    </ngb-rating>
+    <div style="margin-top: 20px;"><small>All Rights Reserved &copy;</small></div>
   </div>
 
 

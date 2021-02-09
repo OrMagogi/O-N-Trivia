@@ -17,8 +17,8 @@
 .triviaQuestionContainer{
     margin-top: 50px;
     width: fit-content;
-    background-color: rgba(18, 155, 218, 0.63);
-    border-radius: 4px;
+    background-color: rgba(3, 59, 85, 0.63);
+    border-radius: 2px;
 
 }
 
@@ -91,4 +91,9 @@ h1{
 button{
     border-radius: 4px;
     box-shadow: 10px black;
+}
+p{
+    margin-top: 20px;
+    
+    width: 50%;
 }

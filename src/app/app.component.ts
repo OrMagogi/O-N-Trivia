@@ -31,7 +31,9 @@ export class AppComponent {
   public modalTitle:string;
   public pageToDisplay="homepage_template";
   public confirmedPassword;
+  public currentRate;
   closeResult = '';
+  public readonly;
   public isLoginInformationIncorrect;
   constructor(private _triviaService: TriviaService, private modalService: NgbModal, private dialog: MatDialog) { }
 
@@ -43,6 +45,7 @@ export class AppComponent {
     if(this.isLoggedIn){
       this.userName = JSON.parse(localStorage["loggedUser"])?.userName;
     }
+    this.readonly=false;
   }
 
 
@@ -133,6 +136,11 @@ export class AppComponent {
 
   changedLoginData(){
     this.isLoginInformationIncorrect=false;
+  }
+
+  handleRating(){
+    alert(this.currentRate);
+    this.readonly=true;
   }
 }
 

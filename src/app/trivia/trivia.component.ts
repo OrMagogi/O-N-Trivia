@@ -30,6 +30,7 @@ export class TriviaComponent {
   public leftTime;
   public answersDivClasses = [];
   public isNewHighscore;
+  public progressbarValue;
 
 
   constructor(private _triviaService: TriviaService) {
@@ -64,6 +65,7 @@ export class TriviaComponent {
   }
 
   startTriviaSp() {
+    this.progressbarValue=0;
     this.setStage(false, true, false);
     this.isNewHighscore=false;
     console.log("Trivia_Component_ts - startTriviaSp() " + this.triviaTimer);
@@ -72,6 +74,7 @@ export class TriviaComponent {
   }
 
   async checkAnswer(clickedAnswer, divNumber) {
+    this.progressbarValue+=10;
     this.answersDivClasses[0] += " disabledAnswer";
     this.answersDivClasses[1] += " disabledAnswer";
     this.answersDivClasses[2] += " disabledAnswer";
@@ -169,7 +172,10 @@ export class TriviaComponent {
   }
 
   playAgain(){
-    //this.ngOnInit();
+    this.questionsList=[];
+    this.userScore=0;
+    this.questionIndex=0;
+    this.ngOnInit();
     this.setStage(false,true,false);
   }
 
