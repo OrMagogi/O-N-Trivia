@@ -139,7 +139,6 @@ export class AppComponent {
   }
 
   handleRating(){
-    alert(this.currentRate);
     this.readonly=true;
   }
 }

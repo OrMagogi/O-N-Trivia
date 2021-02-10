@@ -172,6 +172,7 @@ export class TriviaComponent {
   }
 
   playAgain(){
+    this.progressbarValue=0;
     this.questionsList=[];
     this.userScore=0;
     this.questionIndex=0;

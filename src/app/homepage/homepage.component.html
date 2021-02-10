@@ -1,4 +1,4 @@
-<h1> WELCOME TO O&N TRIVIA ! </h1>
+<h1 class="roundfont"> WELCOME TO O&N TRIVIA ! </h1>
 <ngb-carousel #carousel class="carousel slide carousel-fade" [interval]="3000" [showNavigationArrows]="true"
   [showNavigationIndicators]="false" id="homepage_carousel">
   <ng-template ngbSlide *ngFor="let img of images; index as i">
@@ -11,8 +11,8 @@
 
 
 
-<div>
-  <h2>What's new?</h2>
+<div class="roundfont news">
+  <h2 class="roundfont">What's new?</h2>
   <ul>
     <li *ngFor="let news of newsList">
       <div>
@@ -23,7 +23,7 @@
 
 </div>
 
-<ngb-accordion (panelChange)="beforeChange($event)" *ngFor="let information of informationList">
+<ngb-accordion (panelChange)="beforeChange($event)" *ngFor="let information of informationList" class="news">
   <ngb-panel id="preventchange-1" title= {{information.heading}}>
     <ng-template ngbPanelContent>
       {{information.info}}

@@ -20,3 +20,18 @@ h1{
 ngbPanelContent{
     width: 100px;
 }
+
+.centered{
+    text-align: center;
+    
+}
+.roundfont{
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+.news{
+    margin-left: 5%;
+    font-size: 18px;
+}
+li{
+    margin-bottom: 8px;
+}
