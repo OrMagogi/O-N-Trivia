@@ -41,7 +41,8 @@ export class AppComponent {
   ngOnInit() {
     this.user = new User("", "", 0);
     console.log("is user logged?: " + localStorage["loggedUser"]);
-    this.isLoggedIn = localStorage["loggedUser"] != "undefined"
+    this.isLoggedIn=true;
+    //this.isLoggedIn = localStorage["loggedUser"] != "undefined"
     if(this.isLoggedIn){
       this.userName = JSON.parse(localStorage["loggedUser"])?.userName;
     }

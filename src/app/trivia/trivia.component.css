@@ -41,7 +41,11 @@
     width: 100px;
     height: 40px;
     font-size: 25px;
-    box-shadow: 4px black;    
+    box-shadow: 4px black;
+    animation-name: startGameAnimation;
+    animation-duration: 1s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;    
 }
 
 body,html{
@@ -96,4 +100,14 @@ p{
     margin-top: 20px;
     
     width: 50%;
+}
+
+@keyframes startGameAnimation{
+    0%{
+        transform: scale(1.2);
+    }
+
+    100%{
+        transform: scale(1);
+    }
 }
